@@ -1,5 +1,5 @@
 import { getUserInfoApi, clearUserInfo } from "@/store/modules/userStore";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Layout, Menu, Popconfirm } from "antd";
 import {
