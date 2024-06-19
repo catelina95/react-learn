@@ -1,5 +1,5 @@
 import { getUserInfoApi, clearUserInfo } from "@/store/modules/userStore";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Layout, Menu, Popconfirm } from "antd";
 import {
@@ -19,7 +19,7 @@ const GeekLayout = () => {
 
   // 反向高亮
   const location = useLocation();
-  const selectedKeys = location.pathname;
+  const selectedKey = location.pathname;
 
   const { userInfo } = useSelector((state) => state.user);
 
@@ -78,7 +78,7 @@ const GeekLayout = () => {
           <Menu
             mode="inline"
             theme="dark"
-            defaultSelectedKeys={selectedKeys}
+            selectedKeys={selectedKey}
             style={{ height: "100%", borderRight: 0 }}
             items={items}
             onClick={handleMenu}
