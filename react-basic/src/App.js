@@ -7,6 +7,7 @@ import Fib from "./components/Fib";
 import MemoComp from "./components/MemoComp";
 import CacheFunc from "./components/CacheFunc";
 import InputComponent from "./components/ForwardRefComp";
+import CustomInput from "./components/InperativeHandle";
 
 function App() {
   console.log("Rendering App");
@@ -29,11 +30,13 @@ function App() {
 
   const rfcompRef = useRef(null);
   const focuseInput = () => {
-    // 为什么这里是 null？
-    console.log(rfcompRef.current);
-    // rfcompRef.current && rfcompRef.current.focus();
+    rfcompRef.current && rfcompRef.current.focus();
   };
 
+  const customInputRef = useRef(null);
+  const clearInput = () => {
+    console.log("clearInput", customInputRef.current);
+  };
   return (
     <div className="App">
       <button onClick={() => setNumber(number + 1)}>重新渲染 App</button>
@@ -53,8 +56,14 @@ function App() {
       <MemoComp num={num} list={list} />
       {/* 把函数作为 prop 传给了 子组件 */}
       <CacheFunc onChange={handleCacheFuncChange} />
+      br: <br />
+      {/* forwardRef */}
       <InputComponent ref={rfcompRef} />
       button: <button onClick={focuseInput}>Focus</button>
+      <br />
+      {/* useInperativeHandle */}
+      <CustomInput ref={customInputRef} />
+      <button onClick={clearInput}>Clear</button>
     </div>
   );
 }
