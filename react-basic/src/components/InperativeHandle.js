@@ -1,6 +1,6 @@
 import { forwardRef, useImperativeHandle, useRef } from "react";
 
-const InperativeHandle = forwardRef(({ props, ref }) => {
+const InperativeHandle = forwardRef((props, ref) => {
   const inputRef = useRef(null);
 
   useImperativeHandle(ref, () => ({

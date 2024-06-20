@@ -35,7 +35,7 @@ function App() {
 
   const customInputRef = useRef(null);
   const clearInput = () => {
-    console.log("clearInput", customInputRef.current);
+    customInputRef.current && customInputRef.current.clear();
   };
   return (
     <div className="App">
