@@ -8,6 +8,8 @@ import MemoComp from "./components/MemoComp";
 import CacheFunc from "./components/CacheFunc";
 import InputComponent from "./components/ForwardRefComp";
 import CustomInput from "./components/InperativeHandle";
+import ZustandDemo from "./components/ZustandDemo";
+import ZustandSlice from "./components/ZustandSlice";
 
 function App() {
   console.log("Rendering App");
@@ -64,6 +66,10 @@ function App() {
       {/* useInperativeHandle */}
       <CustomInput ref={customInputRef} />
       <button onClick={clearInput}>Clear</button>
+      {/* zustand 基本使用 */}
+      <ZustandDemo />
+      {/* zustand 切片 */}
+      <ZustandSlice />
     </div>
   );
 }
