@@ -1,10 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./index.css";
 import { decrement, incrementByAmount } from "./store/modules/counterStore";
-import { useEffect } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { fetchChannleList } from "./store/modules/channelStore";
 import Fib from "./components/Fib";
 import MemoComp from "./components/MemoComp";
+import CacheFunc from "./components/CacheFunc";
 
 function App() {
   console.log("Rendering App");
@@ -14,8 +15,21 @@ function App() {
   useEffect(() => {
     dispatch(fetchChannleList());
   }, [dispatch]);
+
+  const list = useMemo(() => [1, 2, 3], []);
+  const num = 100;
+
+  const [number, setNumber] = useState(0);
+
+  // 缓存函数，当 App 组件重新渲染时，不应该触发 CacheFunc 组件的重新渲染
+  const handleCacheFuncChange = useCallback((value) => {
+    console.log("CacheFunc value: ", value);
+  }, []);
+
   return (
     <div className="App">
+      <button onClick={() => setNumber(number + 1)}>重新渲染 App</button>
+      <br />
       <button onClick={() => dispatch(decrement())}>-</button>
       <span>{count}</span>
       <button onClick={() => dispatch(incrementByAmount(10))}>Add 10</button>
@@ -28,7 +42,10 @@ function App() {
       </ul>
       <Fib />
       {/* MemoComp 静态页面，父组件的重新渲染不应该触发 MemoComp 组件的重新渲染 */}
-      <MemoComp />
+      <MemoComp num={num} list={list} />
+
+      {/* 把函数作为 prop 传给了 子组件 */}
+      <CacheFunc onChange={handleCacheFuncChange} />
     </div>
   );
 }

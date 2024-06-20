@@ -1,8 +1,14 @@
 import { memo } from "react";
 
-const MemoComp = () => {
+// 1. 简单类型 num
+// 2. 引用类型 list
+const MemoComp = ({ num, list }) => {
   console.log("Rendering Memo Component");
-  return <h1>Memo Component</h1>;
+  return (
+    <h1>
+      Memo Component: {num} - {list}
+    </h1>
+  );
 };
 
 const cacheMemoComp = memo(MemoComp);
