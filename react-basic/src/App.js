@@ -1,11 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./index.css";
 import { decrement, incrementByAmount } from "./store/modules/counterStore";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { fetchChannleList } from "./store/modules/channelStore";
 import Fib from "./components/Fib";
 import MemoComp from "./components/MemoComp";
 import CacheFunc from "./components/CacheFunc";
+import InputComponent from "./components/ForwardRefComp";
 
 function App() {
   console.log("Rendering App");
@@ -26,6 +27,13 @@ function App() {
     console.log("CacheFunc value: ", value);
   }, []);
 
+  const rfcompRef = useRef(null);
+  const focuseInput = () => {
+    // 为什么这里是 null？
+    console.log(rfcompRef.current);
+    // rfcompRef.current && rfcompRef.current.focus();
+  };
+
   return (
     <div className="App">
       <button onClick={() => setNumber(number + 1)}>重新渲染 App</button>
@@ -43,9 +51,10 @@ function App() {
       <Fib />
       {/* MemoComp 静态页面，父组件的重新渲染不应该触发 MemoComp 组件的重新渲染 */}
       <MemoComp num={num} list={list} />
-
       {/* 把函数作为 prop 传给了 子组件 */}
       <CacheFunc onChange={handleCacheFuncChange} />
+      <InputComponent ref={rfcompRef} />
+      button: <button onClick={focuseInput}>Focus</button>
     </div>
   );
 }
