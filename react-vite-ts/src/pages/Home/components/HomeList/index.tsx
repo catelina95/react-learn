@@ -1,6 +1,7 @@
 import { ArticleRes, getArticleList } from "@/apis/list";
 import { List, Image, InfiniteScroll } from "antd-mobile";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   channelId: string;
@@ -36,6 +37,11 @@ const HomeList = (props: Props) => {
     }
   };
 
+  const navigate = useNavigate();
+  const gotoDetail = (id: string) => {
+    navigate(`/detail?id=${id}`);
+  };
+
   // 跟 UI 的请求需要放在组件内部
   useEffect(() => {
     const fetchData = async () => {
@@ -57,6 +63,7 @@ const HomeList = (props: Props) => {
       <List>
         {articlesList.results.map((article) => (
           <List.Item
+            onClick={() => gotoDetail(article.art_id)}
             key={article.art_id}
             prefix={
               <Image
