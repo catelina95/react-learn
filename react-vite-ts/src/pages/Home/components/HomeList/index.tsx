@@ -1,5 +1,5 @@
 import { ArticleRes, getArticleList } from "@/apis/list";
-import { List, Image } from "antd-mobile";
+import { List, Image, InfiniteScroll } from "antd-mobile";
 import { useEffect, useState } from "react";
 
 type Props = {
@@ -10,8 +10,31 @@ const HomeList = (props: Props) => {
   const { channelId } = props;
   const [articlesList, setArticlesList] = useState<ArticleRes>({
     results: [],
-    pre_timestamp: "",
+    pre_timestamp: "" + new Date().getTime(),
   });
+
+  const [hasMore, setHasMore] = useState(true);
+  const loadMore = async () => {
+    console.log("loadMore");
+    try {
+      const res = await getArticleList({
+        channel_id: channelId,
+        timestamp: articlesList.pre_timestamp,
+      });
+      // 拼接数据
+      const { results, pre_timestamp } = res.data.data;
+      setArticlesList({
+        results: [...articlesList.results, ...results],
+        pre_timestamp,
+      });
+      // 停止监听
+      if (results.length === 0) {
+        setHasMore(false);
+      }
+    } catch (error) {
+      throw new Error("获取文章列表失败");
+    }
+  };
 
   // 跟 UI 的请求需要放在组件内部
   useEffect(() => {
@@ -21,10 +44,8 @@ const HomeList = (props: Props) => {
           channel_id: channelId,
           timestamp: "" + new Date().getTime(),
         });
-        setArticlesList({
-          results: res.data.data.results,
-          pre_timestamp: res.data.data.pre_timestamp,
-        });
+        const { results, pre_timestamp } = res.data.data;
+        setArticlesList({ results, pre_timestamp });
       } catch (error) {
         throw new Error("获取文章列表失败");
       }
@@ -32,9 +53,9 @@ const HomeList = (props: Props) => {
     fetchData();
   }, [channelId]);
   return (
-    <List>
-      {articlesList.results.map((article) => {
-        return (
+    <>
+      <List>
+        {articlesList.results.map((article) => (
           <List.Item
             key={article.art_id}
             prefix={
@@ -51,9 +72,10 @@ const HomeList = (props: Props) => {
           >
             {article.title}
           </List.Item>
-        );
-      })}
-    </List>
+        ))}
+      </List>
+      <InfiniteScroll threshold={10} loadMore={loadMore} hasMore={hasMore} />
+    </>
   );
 };
 
