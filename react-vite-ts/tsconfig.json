@@ -18,7 +18,13 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    /* 确保 TS 知道路径别名 */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"] // 配置路径别名
+    }
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
