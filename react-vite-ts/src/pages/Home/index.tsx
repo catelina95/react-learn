@@ -4,11 +4,13 @@ import { useTabs, useList } from "./useHome";
 import { useState } from "react";
 
 const Home = () => {
+  console.log("Home");
   const { channelList } = useTabs();
   const [activeKey, setActiveKey] = useState("0");
+  const timestamp = "" + new Date().getTime();
   const { articles } = useList({
     channel_id: activeKey,
-    timestamp: "" + new Date().getTime(),
+    timestamp,
   });
   console.log("articles", articles);
   const handleActiveKey = (key: string) => {

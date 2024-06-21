@@ -22,6 +22,7 @@ export const useTabs = () => {
 }
 
 export const useList = ({ channel_id, timestamp }: ArticleReqParams) => {
+    console.log("channel_id", channel_id, timestamp);
     const [articles, setArticles] = useState<ArticleItem[]>([]);
 
     useEffect(() => {
@@ -34,7 +35,7 @@ export const useList = ({ channel_id, timestamp }: ArticleReqParams) => {
             }
         }
         fetchData()
-    }, [channel_id, timestamp])
+    }, [channel_id])
 
     return { articles }
 }
