@@ -1,7 +1,11 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 
-type TodoAddProps = (text: string) => void;
-const TodoAdd = ({ onAdd }: { onAdd: TodoAddProps }) => {
+interface TodoAddProps {
+  onAdd: (text: string) => void;
+}
+
+const TodoAdd: FC<TodoAddProps> = (props) => {
+  const { onAdd } = props;
   const [todo, setTodo] = useState("");
 
   const handleAdd = (e: React.KeyboardEvent<HTMLInputElement>) => {
