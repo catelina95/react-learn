@@ -2,6 +2,7 @@ import { fetchDetail, type DetailRes } from "@/apis/detail";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { NavBar } from "antd-mobile";
+import Demo from "../Demo";
 
 const Detail: React.FC = () => {
   const [detail, setDetail] = useState<DetailRes | null>(null);
@@ -25,13 +26,21 @@ const Detail: React.FC = () => {
     getDetail();
   }, [id]);
 
-  return detail ? (
-    <div>
-      <NavBar onBack={back}>{detail?.title}</NavBar>
-      <div dangerouslySetInnerHTML={{ __html: detail?.content || "" }}></div>
-    </div>
-  ) : (
-    <div>加载中...</div>
+  return (
+    <>
+      {detail ? (
+        <div>
+          <NavBar onBack={back}>{detail?.title}</NavBar>
+          <div
+            dangerouslySetInnerHTML={{ __html: detail?.content || "" }}
+          ></div>
+        </div>
+      ) : (
+        <div>加载中...</div>
+      )}
+
+      <Demo name={"catelina"} />
+    </>
   );
 };
 
