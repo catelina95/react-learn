@@ -2,7 +2,7 @@ import { fetchDetail, type DetailRes } from "@/apis/detail";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { NavBar } from "antd-mobile";
-import Demo from "../Demo";
+import Todo from "@/pages/Todo";
 
 const Detail: React.FC = () => {
   const [detail, setDetail] = useState<DetailRes | null>(null);
@@ -39,7 +39,7 @@ const Detail: React.FC = () => {
         <div>加载中...</div>
       )}
 
-      <Demo name={"catelina"} />
+      <Todo />
     </>
   );
 };
