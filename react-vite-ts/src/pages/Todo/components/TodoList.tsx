@@ -1,12 +1,12 @@
 import { FC } from "react";
-import type { TodoItem } from "../types";
+import type { Func, TodoItem } from "../types";
 
-interface TodoListProps {
+interface ITodoListProps {
   list: TodoItem[];
-  onSetDone: (id: number) => void;
+  onSetDone: Func<number>;
 }
 
-const TodoList: FC<TodoListProps> = (props) => {
+const TodoList: FC<ITodoListProps> = (props) => {
   const { list, onSetDone } = props;
   return (
     <ul className="todo-list">

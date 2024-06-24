@@ -1,10 +1,10 @@
 import { FC } from "react";
 import { TodoItem } from "../types";
 
-interface TodoFooterProps {
+interface ITodoFooterProps {
   unDoneList: TodoItem[];
 }
-const TodoFooter: FC<TodoFooterProps> = (props) => {
+const TodoFooter: FC<ITodoFooterProps> = (props) => {
   const { unDoneList } = props;
   return (
     <footer className="footer">

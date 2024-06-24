@@ -3,3 +3,5 @@ export type TodoItem = {
     text: string;
     done: boolean;
 }
+
+export type Func<T> = (params: T) => void;

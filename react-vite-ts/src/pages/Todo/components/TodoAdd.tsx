@@ -1,10 +1,11 @@
 import { FC, useState } from "react";
+import { Func } from "../types";
 
-interface TodoAddProps {
-  onAdd: (text: string) => void;
+interface ITodoAddProps {
+  onAdd: Func<string>;
 }
 
-const TodoAdd: FC<TodoAddProps> = (props) => {
+const TodoAdd: FC<ITodoAddProps> = (props) => {
   const { onAdd } = props;
   const [todo, setTodo] = useState("");
 
